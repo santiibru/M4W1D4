@@ -4,12 +4,9 @@
 
 
 const cover = (query, id) => {
-    const section = document.querySelector(`#${id}`)
-
     const row = document.querySelector(`#${id}Section`)
-    console.log(row)
     fetch(
-      "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query
+      "https://striveschool-api.herokuapp.com/api/deezer/search?q="+query
     )
       .then((raw) => {
         return raw.json()
