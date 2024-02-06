@@ -3,16 +3,37 @@
 
 
 
-//let eminemCovers = document.getElementById("eminemSection");
-// let eminemData = [];
-// fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem")
-// // // https://developer.mozilla.org/en-US/docs/Web/API/Response/json
-// .then((response) => response.json()) // Abbiamo una promise restituita qui
-// .then((json) => eminemData.push(json.data[0].album.cover))      
-//     .catch((err) => console.log("Error detected: ", err));
-// console.log(eminemData);
+const cover = (query, id) => {
+    const section = document.querySelector(`#${id}`)
 
-// let myImg = document.createElement("img");
+    const row = document.querySelector(`#${id}Section`)
+    console.log(row)
+    fetch(
+      "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query
+    )
+      .then((raw) => {
+        return raw.json()
+      })
+      .then((result) => {
+        let music = result.data
+        for (let i = 0; i < music.length; i++) {
+            const element = music[i]
+            if (element.artist.name.includes("Eminem")) { 
+            row.innerHTML += `<div class='col col-3 pb-3'> <img class='w-100' src='${element.album.cover_xl}'/> </div>`
+            } else if (element.artist.name.includes("Queen")) {
+                row.innerHTML += `<div class='col col-3 pb-3'> <img class='w-100' src='${element.album.cover_xl}'/> </div>`
+            } else if (element.artist.name.includes("Metallica")){
+                row.innerHTML += `<div class='col col-3 pb-3'> <img class='w-100' src='${element.album.cover_xl}'/> </div>`
+            }
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+  window.onload = () => {
+    cover("eminem", "eminem")
+    cover("queen", "queen")
+    cover("metallica", "metallica")
+  }
 
 
 
